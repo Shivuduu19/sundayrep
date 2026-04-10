@@ -1,8 +1,9 @@
 "use client"
-import React, { useCallback, useLayoutEffect, useRef, useState } from 'react'
+import React, { use, useCallback, useLayoutEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { motion, cubicBezier, useMotionValueEvent, useScroll, useSpring, useTransform } from 'motion/react';
 import { useMediaQuery } from '@uidotdev/usehooks';
+import { useIsDesktop } from '../utils/util';
 
 const Design = () => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -10,7 +11,7 @@ const Design = () => {
 
     const [containerWidth, setContainerWidth] = useState(0);
     const [scrollWidth, setScrollWidth] = useState(0);
-    const isDesktop = useMediaQuery("only screen and (min-width : 1024px)");
+    const isDesktop = useIsDesktop();
 
     // Measure width on mount
     useLayoutEffect(() => {
