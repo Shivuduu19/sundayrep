@@ -6,17 +6,19 @@ import { useEffect, useState } from "react";
 
 export function useMintab() {
 
-    const [mounted, setMounted] = useState(false);
+    const [isMD, setIsMD] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
+        const mql = window.matchMedia("(min-width: 768px)");
+        setIsMD(mql.matches);
+
+        const handler = (e: MediaQueryListEvent) => setIsMD(e.matches);
+        mql.addEventListener("change", handler);
+
+        return () => mql.removeEventListener("change", handler);
     }, []);
 
-    const isMD = useMediaQuery("(min-width: 768px)");
-
-    return mounted ? isMD : false;
-    // const isMD = useMediaQuery("(min-width: 768px)");
-    // return isMD;
+    return isMD;
 }
 
 
